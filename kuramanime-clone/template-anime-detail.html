@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Star Anime - [NAMA ANIME] Sub Indo | Streaming & Download</title>
+<style>
+/* ===== RESET & BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; background: #0a0a0f; color: #e8e8ed; min-height: 100vh; }
+
+/* ===== TOP BAR ===== */
+.topbar { position: fixed; top:0; left:0; right:0; height: 40px; background: #12121a; border-bottom: 1px solid #2a2a36; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 1000; font-size: 12px; color: #9a9aab; }
+.topbar .brands { display: flex; align-items: center; gap: 8px; }
+.topbar .brands span { font-size: 11px; }
+
+/* ===== HEADER ===== */
+header { position: fixed; top: 40px; left:0; right:0; height: 56px; background: #12121a; border-bottom: 1px solid #2a2a36; display: flex; align-items: center; padding: 0 24px; z-index: 999; gap: 16px; }
+.logo { font-size: 20px; font-weight: 800; color: #e8e8ed; text-decoration: none; white-space: nowrap; letter-spacing: -0.5px; }
+.logo span { color: #ff4d4d; }
+.nav { display: flex; gap: 2px; list-style: none; }
+.nav li a { display: block; padding: 6px 12px; color: #9a9aab; text-decoration: none; font-size: 13px; font-weight: 500; border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
+.nav li a:hover, .nav li a.active { color: #e8e8ed; background: #22222e; }
+.nav li a.active { color: #ff4d4d; }
+.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: transparent; border: 1px solid #2a2a36; border-radius: 6px; color: #9a9aab; text-decoration: none; font-size: 13px; transition: all 0.2s; margin-right: auto; }
+.back-btn:hover { border-color: #3a3a46; color: #e8e8ed; }
+.actions { display: flex; gap: 6px; align-items: center; margin-left: auto; }
+.search { position: relative; }
+.search input { background: #1a1a24; border: 1px solid #2a2a36; border-radius: 20px; padding: 6px 14px 6px 34px; color: #e8e8ed; font-size: 12px; width: 160px; outline: none; transition: border-color 0.2s, width 0.2s; }
+.search input:focus { border-color: #ff4d4d; width: 220px; }
+.search input::placeholder { color: #5a5a6a; }
+.search .icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #5a5a6a; font-size: 12px; pointer-events: none; }
+.btn { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; text-decoration: none; }
+.btn-primary { background: #ff4d4d; color: white; }
+.btn-primary:hover { background: #ff6b6b; color: white; }
+.btn-outline { background: transparent; border: 1px solid #2a2a36; color: #9a9aab; }
+.btn-outline:hover { border-color: #3a3a46; color: #e8e8ed; }
+
+/* ===== DETAIL HERO ===== */
+.detail-hero { display: grid; grid-template-columns: 260px 1fr; gap: 32px; padding: 32px 32px 24px; background: radial-gradient(ellipse 60% 40% at 10% 0%, rgba(255,77,77,0.08), transparent), #0a0a0f; border-bottom: 1px solid #2a2a36; align-items: start; }
+.cover-banner { width: 260px; height: 370px; border-radius: 10px; overflow: hidden; background: #1a1a24; border: 1px solid #2a2a36; position: relative; flex-shrink: 0; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.cover-banner img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.cover-banner:hover img { transform: scale(1.03); }
+.cover-badge { position: absolute; top: 10px; left: 10px; background: rgba(255,77,77,0.9); color: white; padding: 3px 10px; border-radius: 5px; font-size: 10px; font-weight: 700; z-index: 2; text-transform: uppercase; letter-spacing: 0.5px; }
+.cover-badge.live { background: rgba(77,255,150,0.9); color: #0a0a0f; }
+.cover-badge.done { background: rgba(77,180,255,0.9); color: #0a0a0f; }
+.detail-content { flex: 1; min-width: 0; }
+.detail-content .page-title { font-size: clamp(22px, 3.5vw, 30px); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px; line-height: 1.15; color: #e8e8ed; }
+.detail-content .page-title-en { font-size: 13px; color: #5a5a6a; margin-bottom: 12px; font-weight: 400; letter-spacing: 0.3px; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; align-items: center; }
+.meta-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; background: #1a1a24; border: 1px solid #2a2a36; border-radius: 16px; font-size: 11px; color: #9a9aab; font-weight: 500; text-transform: capitalize; }
+.meta-chip.genre { color: #9a9aab; }
+.meta-chip.type { border-color: rgba(77,255,150,0.2); color: #4dff96; }
+.meta-chip.status { border-color: rgba(77,180,255,0.2); color: #4db4ff; }
+.meta-chip.season-active { border-color: #ff4d4d; color: #ff4d4d; }
+.rating-block { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; background: #1a1a24; border: 1px solid rgba(255,107,107,0.2); border-radius: 16px; font-size: 11px; color: #ff6b6b; font-weight: 600; }
+.rating-score { font-size: 14px; font-weight: 700; }
+.synopsis-box { font-size: 13px; color: #9a9aab; line-height: 1.7; padding: 14px 16px; background: #1a1a24; border-radius: 8px; border: 1px solid #2a2a36; margin-bottom: 20px; }
+.synopsis-box strong { color: #e8e8ed; display: block; margin-bottom: 4px; }
+
+/* ===== SEASON TABS ===== */
+.season-nav { display: flex; gap: 8px; padding: 16px 32px; justify-content: center; flex-wrap: wrap; background: #12121a; border-bottom: 1px solid #2a2a36; }
+.season-nav a { padding: 6px 18px; border-radius: 18px; background: #1a1a24; border: 1px solid #2a2a36; color: #9a9aab; text-decoration: none; font-size: 12px; font-weight: 600; transition: all 0.2s; }
+.season-nav a:hover { border-color: #ff4d4d; color: #e8e8ed; }
+.season-nav a.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+.season-nav a .season-num { font-weight: 700; margin-right: 4px; }
+
+/* ===== EPISODE LIST ===== */
+.ep-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.ep-section h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: #e8e8ed; }
+.ep-section h2 .episode-count { background: #1a1a24; padding: 2px 8px; border-radius: 6px; font-size: 12px; color: #9a9aab; font-weight: 500; margin-left: 6px; }
+.ep-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+.ep-filter { display: flex; gap: 6px; }
+.ep-filter a { padding: 4px 10px; border-radius: 4px; background: #1a1a24; border: 1px solid #2a2a36; color: #9a9aab; text-decoration: none; font-size: 11px; font-weight: 500; transition: all 0.2s; }
+.ep-filter a:hover { border-color: #3a3a46; color: #e8e8ed; }
+.ep-filter a.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+.ep-view-all { color: #9a9aab; text-decoration: none; font-size: 12px; font-weight: 500; transition: color 0.2s; }
+.ep-view-all:hover { color: #ff4d4d; }
+.ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.ep-card { background: #1a1a24; border: 1px solid #2a2a36; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; transition: all 0.2s; text-decoration: none; color: #e8e8ed; display: block; }
+.ep-card:hover { border-color: #ff4d4d; background: #22222e; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255,77,77,0.2); }
+.ep-card.active-ep { border-color: #ff4d4d; background: rgba(255,77,77,0.08); }
+.ep-thumb { width: 100%; aspect-ratio: 16/9; background: #22222e; border-radius: 6px; overflow: hidden; margin-bottom: 6px; position: relative; }
+.ep-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.ep-card:hover .ep-thumb img { transform: scale(1.05); }
+.ep-thumb .play-overlay { position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
+.ep-card:hover .play-overlay { opacity: 1; }
+.ep-play-icon { width: 32px; height: 32px; border-radius: 50%; background: #ff4d4d; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(255,77,77,0.4); }
+.ep-title { font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+.ep-meta { font-size: 10px; color: #5a5a6a; }
+.ep-status-badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 600; margin-top: 4px; }
+.ep-status-new { background: rgba(255,180,50,0.9); color: #0a0a0f; }
+.ep-status-live { background: rgba(77,255,150,0.9); color: #0a0a0f; }
+
+/* ===== VIDEO PLAYER ===== */
+.video-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.video-section h2 { font-size: 16px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.video-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 10px; overflow: hidden; border: 1px solid #2a2a36; position: relative; box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+.video-wrapper iframe, .video-wrapper video { width: 100%; height: 100%; border: none; display: block; }
+.video-wrapper .video-placeholder { width: 100%; height: 100%; background: #1a1a24; display: flex; align-items: center; justify-content: center; color: #5a5a6a; font-size: 14px; flex-direction: column; gap: 8px; }
+.video-wrapper .video-placeholder .pp-icon { font-size: 48px; color: #ff4d4d; }
+.server-selector { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.server-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid #2a2a36; background: #1a1a24; color: #9a9aab; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.server-btn:hover { border-color: #3a3a46; color: #e8e8ed; }
+.server-btn.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+.server-btn.live { background: rgba(77,255,150,0.1); border-color: rgba(77,255,150,0.3); color: #4dff96; }
+.server-btn .server-dot { width: 8px; height: 8px; border-radius: 50%; background: #4dff96; }
+
+/* ===== DOWNLOAD ===== */
+.dl-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.dl-section h2 { font-size: 16px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.dl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.dl-card { background: #1a1a24; border: 1px solid #2a2a36; border-radius: 8px; padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s; text-decoration: none; color: #e8e8ed; display: block; }
+.dl-card:hover { border-color: #ff4d4d; background: #22222e; transform: translateY(-2px); }
+.dl-card .dl-icon { font-size: 28px; margin-bottom: 6px; }
+.dl-card .dl-label { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.dl-card .dl-size { font-size: 11px; color: #5a5a6a; margin-bottom: 8px; }
+.dl-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-top: 4px; }
+.dl-badge-free { background: rgba(77,255,150,0.1); color: #4dff96; border: 1px solid rgba(77,255,150,0.3); }
+.dl-badge-new { background: rgba(255,180,50,0.1); color: #ffb432; border: 1px solid rgba(255,180,50,0.3); }
+
+/* ===== INFO ===== */
+.info-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.info-section h2 { font-size: 16px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.info-card { background: #1a1a24; border: 1px solid #2a2a36; border-radius: 10px; padding: 16px; }
+.info-card h3 { font-size: 13px; font-weight: 600; color: #ff4d4d; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.info-card p { font-size: 12px; color: #9a9aab; line-height: 1.6; }
+
+/* ===== FOOTER ===== */
+.footer { padding: 24px 32px; background: #12121a; border-top: 1px solid #2a2a36; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-section h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: #e8e8ed; }
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 4px; }
+.footer-section ul li a { color: #9a9aab; text-decoration: none; font-size: 12px; transition: color 0.2s; }
+.footer-section ul li a:hover { color: #ff4d4d; }
+.footer-bottom { max-width: 1200px; margin: 16px auto 0; padding-top: 12px; border-top: 1px solid #2a2a36; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #5a5a6a; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  header { padding: 0 16px; gap: 12px; flex-wrap: wrap; height: auto; }
+  .nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: 4px; }
+  .actions { margin-left: 0; }
+  .search input { width: 120px; } .search input:focus { width: 160px; }
+  .detail-hero { grid-template-columns: 1fr; padding: 20px 16px; }
+  .cover-banner { width: 100%; max-width: 180px; height: 260px; margin: 0 auto; }
+  .section { padding: 16px 16px 24px; }
+  .ep-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+  .info-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brands">
+    <a href="/" style="color:#ff4d4d;text-decoration:none;font-weight:600">⬅ Beranda</a>
+  </div>
+  <span>Streaming & Download Anime Sub Indo Gratis</span>
+  <div class="brands">
+    <a href="#" style="color:#ff4d4d;text-decoration:none">About</a>
+    <a href="#" style="color:#ff4d4d;text-decoration:none">DMCA</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <a href="/" class="back-btn">⬅ Kembali</a>
+  <div class="logo">Star Anime<span> | [NAMA ANIME]</span></div>
+  <div class="nav">
+    <li><a href="#" class="active">[NAMA ANIME]</a></li>
+    <li><a href="#">Season 1</a></li>
+    <li><a href="#">Season 2</a></li>
+    <li><a href="#">Season 3</a></li>
+    <li><a href="#">Download</a></li>
+  </div>
+  <div class="actions">
+    <div class="search">
+      <span class="icon">🔍</span>
+      <input type="text" placeholder="Cari anime..." value="[NAMA ANIME]">
+    </div>
+    <a href="#" class="btn btn-outline">Login</a>
+    <a href="#" class="btn btn-primary">Daftar</a>
+  </div>
+</header>
+
+<!-- ===== DETAIL HERO ===== -->
+<section class="detail-hero">
+  <div class="cover-banner">
+    <!-- 🚨 GANTI GAMBAR COVER DENGAN GAMBAR ASLI ANIME -->
+    <img src="[LINK_COVER_ANIME]" alt="[NAMA ANIME] Cover" onerror="this.src='https://picsum.photos/seed/anime-cover/320/450'; this.onerror=null">
+    <!-- Status badge bisa diubah: done=selesai, live=sedang tayang, new=baru rilis -->
+    <div class="cover-badge done">COMPLETED</div>
+  </div>
+  <div class="detail-content">
+    <h1 class="page-title">[NAMA ANIME]</h1>
+    <div class="page-title-en">[JUDUL INGGRIS / JAPANESE NAME]</div>
+    
+    <div class="meta-row">
+      <!-- Ganti genre sesuai anime -->
+      <span class="meta-chip genre">😂 Comedy</span>
+      <span class="meta-chip genre">🍺 Slice of Life</span>
+      <span class="meta-chip genre">🏖️ Seinen</span>
+      <span class="meta-chip type">TV Series</span>
+      <!-- Status: completed/ongoing/coming-soon -->
+      <span class="meta-chip status">Completed</span>
+      <span class="meta-chip">2018</span>
+      <span class="meta-chip">12 Ep/season</span>
+      <span class="rating-block">
+        🌟 Rating <span class="rating-score">7.9/10</span>
+      </span>
+    </div>
+
+    <div class="synopsis-box">
+      <strong>📖 Synopsis</strong>
+      [SINOPSIS ANIME - Tulis di sini. Singkat, menarik, sebutin juga studio, tahun, dll.]
+    </div>
+
+    <div style="display:flex;gap:12px;font-size:12px;color:#5a5a6a;flex-wrap:wrap">
+      <span>🎬 Studio: <strong style="color:#e8e8ed">[NAMA STUDIO]</strong></span>
+      <span>📅 TAYANG: <strong style="color:#e8e8ed">[TAHUN - TAHUN]</strong></span>
+      <span>⏱️ Duration: <strong style="color:#e8e8ed">[~24 menit/ep]</strong></span>
+      <span>🏷️ Type: <strong style="color:#e8e8ed">[TV/OVA/Movie]</strong></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEASON TABS ===== -->
+<nav class="season-nav">
+  <!-- Ganti label season sesuai anime -->
+  <a href="#s1" class="active"><span class="season-num">S1</span> [NAMA ANIME] Season 1</a>
+  <a href="#s2"><span class="season-num">S2</span> [NAMA ANIME] Season 2</a>
+  <a href="#s3"><span class="season-num">S3</span> [NAMA ANIME] Season 3</a>
+</nav>
+
+<!-- ===== EPISODE LIST — SEASON 1 ===== -->
+<section class="ep-section" id="s1">
+  <h2>🎬 [NAMA ANIME] Season 1 <span class="episode-count">[JUMLAH EPISODE] Episode</span></h2>
+  <div class="ep-toolbar">
+    <div class="ep-filter">
+      <a href="#" class="active">Semua</a>
+      <a href="#">Video</a>
+      <a href="#">Download</a>
+    </div>
+    <a href="#" class="ep-view-all">Lihat Semua →</a>
+  </div>
+  <div class="ep-grid">
+    <!-- 🚨 COPI-PASTE EPISODE CARD DI SINI UNTUK SETIAP EPISODE -->
+    <!-- Template episode card: -->
+    <!-- 
+    <a href="#" class="ep-card" onclick="selectEpisode(1, 's1')">
+      <div class="ep-thumb">
+        <!-- 🚨 GANTI GAMBAR THUMBNAIL DENGAN GAMBAR ASLI -->
+        <img src="[LINK_THUMBNAIL_EPISODE]" alt="Ep 1" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 1 — [JUDUL EPISODE]</div>
+      <div class="ep-meta">[TANGGAL RILIS]</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    -->
+    <!-- Ulangi untuk setiap episode -->
+  </div>
+</section>
+
+<!-- ===== EPISODE LIST — SEASON 2 ===== -->
+<section class="ep-section" id="s2" style="display:none">
+  <h2>🎬 [NAMA ANIME] Season 2 <span class="episode-count">[JUMLAH EPISODE] Episode</span></h2>
+  <div class="ep-toolbar">
+    <div class="ep-filter">
+      <a href="#" class="active">Semua</a>
+      <a href="#">Video</a>
+      <a href="#">Download</a>
+    </div>
+    <a href="#" class="ep-view-all">Lihat Semua →</a>
+  </div>
+  <div class="ep-grid">
+    <!-- 🚨 COPI-PASTE EPISODE CARD DI SINI UNTUK SEASON 2 -->
+    <!-- Ubah season ID jadi 's2' di onclick="selectEpisode(ep, 's2')" -->
+  </div>
+</section>
+
+<!-- ===== EPISODE LIST — SEASON 3 ===== -->
+<section class="ep-section" id="s3" style="display:none">
+  <h2>🎬 [NAMA ANIME] Season 3 <span class="episode-count">[JUMLAH EPISODE] Episode</span></h2>
+  <div class="ep-toolbar">
+    <div class="ep-filter">
+      <a href="#" class="active">Semua</a>
+      <a href="#">Video</a>
+      <a href="#">Download</a>
+    </div>
+    <a href="#" class="ep-view-all">Lihat Semua →</a>
+  </div>
+  <div class="ep-grid">
+    <!-- 🚨 COPI-PASTE EPISODE CARD DI SINI UNTUK SEASON 3 -->
+    <!-- Ubah season ID jadi 's3' di onclick="selectEpisode(ep, 's3')" -->
+  </div>
+</section>
+
+<!-- ===== VIDEO PLAYER SECTION ===== -->
+<section class="video-section">
+  <h2>🎬 Video Player — <span id="current-ep-label">[NAMA ANIME] Season 1 Episode 1</span></h2>
+  <div class="video-wrapper">
+    <!-- ============================================ -->
+    <!-- 🚨 GANTI DENGAN LINK VIDEO ASLI             -->
+    <!-- ============================================ -->
+    <!-- CARA 1: Pakai iframe (misal embed YouTube)  -->
+    <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" -->
+    <!--   title="[NAMA ANIME] Episode" -->
+    <!--   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" -->
+    <!--   allowfullscreen></iframe>                      -->
+    <!--                                                    -->
+    <!-- CARA 2: Pakai video file sendiri (di folder videos/) -->
+    <!-- <video controls>                               -->
+    <!--   <source src="videos/[nama-file-video].mp4" type="video/mp4"> -->
+    <!-- </video>                                         -->
+    <!--                                                    -->
+    <!-- CARA 3: Link embed dari situs lain           -->
+    <!-- <iframe src="[LINK_EMBED_DARI_SITUS_LAIN]" -->
+    <!--   title="[NAMA ANIME] Episode" allowfullscreen></iframe> -->
+    <!--                                                    -->
+    <!-- Saat ini Tampilkan placeholder saja:           -->
+    <div class="video-placeholder" id="videoPlaceholder">
+      <div class="pp-icon">🎥</div>
+      <div>Video akan muncul di sini</div>
+      <div style="font-size:11px;color:#5a5a6a">Setelah kamu memasukkan link video</div>
+    </div>
+    <!-- ============================================ -->
+  </div>
+  <div class="server-selector">
+    <a href="#" class="server-btn active" onclick="selectServer(1)">
+      <span class="server-dot"></span> Server 1 — Upload Utama
+    </a>
+    <a href="#" class="server-btn" onclick="selectServer(2)">
+      Server 2 — Backup Server
+    </a>
+    <a href="#" class="server-btn" onclick="selectServer(3)">
+      Server 3 — Mirror Alternatif
+    </a>
+    <a href="#" class="server-btn live" onclick="alert('Fitur live streaming belum tersedia')">
+      🔴 Live Streaming (Coming Soon)
+    </a>
+  </div>
+</section>
+
+<!-- ===== DOWNLOAD SECTION ===== -->
+<section class="dl-section">
+  <h2>📥 Download — <span id="current-ep-dl-label">[NAMA ANIME] Season 1 Episode 1</span></h2>
+  <div class="dl-grid">
+    <!-- 🚨 GANTI HREF DENGAN LINK DOWNLOAD ASLI -->
+    <a href="#" class="dl-card" onclick="alert('Link download 360p - akan diisi nanti')">
+      <div class="dl-icon">📺</div>
+      <div class="dl-label">MP4 360p</div>
+      <div class="dl-size">~150 MB / episode</div>
+      <span class="dl-badge dl-badge-free">FREE</span>
+    </a>
+    <!-- 🚨 GANTI HREF DENGAN LINK DOWNLOAD ASLI -->
+    <a href="#" class="dl-card" onclick="alert('Link download 480p - akan diisi nanti')">
+      <div class="dl-icon">📺</div>
+      <div class="dl-label">MP4 480p</div>
+      <div class="dl-size">~300 MB / episode</div>
+      <span class="dl-badge dl-badge-free">FREE</span>
+    </a>
+    <!-- 🚨 GANTI HREF DENGAN LINK DOWNLOAD ASLI -->
+    <a href="#" class="dl-card" onclick="alert('Link download 720p - akan diisi nanti')">
+      <div class="dl-icon">🎬</div>
+      <div class="dl-label">MP4 720p</div>
+      <div class="dl-size">~600 MB / episode</div>
+      <span class="dl-badge dl-badge-new">HD</span>
+    </a>
+    <!-- 🚨 GANTI HREF DENGAN LINK DOWNLOAD ASLI -->
+    <a href="#" class="dl-card" onclick="alert('Link download MKV - akan diisi nanti')">
+      <div class="dl-icon">🎥</div>
+      <div class="dl-label">MKV 480p</div>
+      <div class="dl-size">~450 MB / episode</div>
+      <span class="dl-badge dl-badge-free">FREE</span>
+    </a>
+    <!-- 🚨 GANTI HREF DENGAN LINK SUBTITLE ASLI -->
+    <a href="#" class="dl-card" onclick="alert('Download subtitle - akan diisi nanti')">
+      <div class="dl-icon">🔤</div>
+      <div class="dl-label">Subtitle Indo</div>
+      <div class="dl-size">SRT / ASS</div>
+      <span class="dl-badge dl-badge-free">FREE</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== INFO SECTION ===== -->
+<section class="info-section">
+  <h2>ℹ️ Informasi Tambahan</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>📺 Cara Nonton di Star Anime</h3>
+      <p>Buka halaman anime → pilih episode → klik "Nonton" atau "Download". Video akan memutar di player. Pilih server yang tersedia.</p>
+    </div>
+    <div class="info-card">
+      <h3>📦 Cara Download</h3>
+      <p>Klik tombol download → pilih kualitas (360p/480p/720p/MKV) → download file → extract jika zip → mainkan dengan VLC atau player lain.</p>
+    </div>
+    <div class="info-card">
+      <h3>🎬 Tentang [NAMA ANIME]</h3>
+      <p>[Tulis informasi umum tentang anime ini — studio, tahun, jenis, dll.]</p>
+    </div>
+    <div class="info-card">
+      <h3>⚠️ Catatan Penting</h3>
+      <p>Video dan link download yang tersedia di halaman ini bersifat <strong>placeholder</strong>. Setelah kamu memiliki sumber video yang valid, ganti link di iframe/video tag dan download link sesuai kebutuhan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-section">
+      <h3>Star Anime</h3>
+      <p style="color:#9a9aab;font-size:12px;line-height:1.6">
+        Portal download dan streaming anime subtitle Indonesia lengkap dan gratis.
+        Koleksi tiap hari update, dari anime ongoing, movie, batch, sampai donghua.
+      </p>
+    </div>
+    <div class="footer-section">
+      <h3>Navigasi</h3>
+      <ul>
+        <li><a href="#">Beranda</a></li>
+        <li><a href="#">Anime Ongoing</a></li>
+        <li><a href="#">Anime Selesai</a></li>
+        <li><a href="#">Anime Movie</a></li>
+        <li><a href="#">Donghua</a></li>
+        <li><a href="#">[NAMA ANIME]</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Kategori</h3>
+      <ul>
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Comedy</a></li>
+        <li><a href="#">Fantasy</a></li>
+        <li><a href="#">Seinen</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Informasi</h3>
+      <ul>
+        <li><a href="#">Tentang Kami</a></li>
+        <li><a href="#">Kontak</a></li>
+        <li><a href="#">DMCA</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Star Anime. Portal Anime Sub Indo.</span>
+    <span>Server 1 • Server 2 • Server 3</span>
+    <span>[NAMA ANIME] © [STUDIO/COPYRIGHT]</span>
+  </div>
+</footer>
+
+<script>
+let currentEpisode = { season: 's1', ep: 1 };
+let currentServer = 1;
+
+function selectEpisode(ep, season) {
+  currentEpisode = { season, ep };
+  const seasonNames = { 's1': 'Season 1', 's2': 'Season 2', 's3': 'Season 3' };
+  const animeName = '[NAMA ANIME]';
+  document.getElementById('current-ep-label').textContent = `${animeName} ${seasonNames[season]} Episode ${ep}`;
+  document.getElementById('current-ep-dl-label').textContent = document.getElementById('current-ep-label').textContent;
+  
+  // Highlight active episode card
+  document.querySelectorAll('.ep-card').forEach(c => c.classList.remove('active-ep'));
+  const activeCard = document.querySelector(`#${season} .ep-card:nth-child(${ep})`);
+  if (activeCard) activeCard.classList.add('active-ep');
+  
+  // Highlight season tab
+  document.querySelectorAll('.season-nav a').forEach(t => t.classList.remove('active'));
+  const seasonTab = document.querySelector(`.season-nav a[href="#${season}"]`);
+  if (seasonTab) seasonTab.classList.add('active');
+  
+  // TODO: Aktifkan video player dengan link yang sesuai
+  // document.getElementById('videoIframe').src = '...';
+  // document.getElementById('videoIframe').style.display = 'block';
+  // document.getElementById('videoPlaceholder').style.display = 'none';
+  
+  console.log('Selected:', season, 'Episode', ep);
+}
+
+function selectServer(serverNum) {
+  currentServer = serverNum;
+  document.querySelectorAll('.server-btn').forEach(b => b.classList.remove('active'));
+  const btns = document.querySelectorAll('.server-btn');
+  if (btns[serverNum - 1]) btns[serverNum - 1].classList.add('active');
+  console.log('Server selected:', serverNum);
+}
+
+// Season tab switching
+document.querySelectorAll('.season-nav a').forEach(tab => {
+  tab.addEventListener('click', function(e) {
+    e.preventDefault();
+    const season = this.getAttribute('href').slice(1);
+    document.querySelectorAll('.season-nav a').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    document.querySelectorAll('.ep-section').forEach(s => s.style.display = 'none');
+    document.getElementById(season).style.display = 'block';
+  });
+});
+</script>
+
+</body>
+</html>
