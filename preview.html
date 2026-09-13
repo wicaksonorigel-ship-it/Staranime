@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Anime | Portal Anime Streaming Indonesia</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-hover: #22222e;
+            --text-primary: #e8e8ed;
+            --text-secondary: #9a9aab;
+            --text-muted: #5a5a6a;
+            --accent: #ff4d4d;
+            --accent-hover: #ff6b6b;
+            --accent-glow: rgba(255, 77, 77, 0.3);
+            --border: #2a2a36;
+            --border-light: #3a3a46;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ===== TOP BAR ===== */
+        .top-bar {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: 40px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .top-bar .ads-info { display: flex; gap: 16px; align-items: center; }
+        .top-bar a { color: var(--accent); text-decoration: none; }
+        .top-bar a:hover { color: var(--accent-hover); }
+        .top-bar .announcements { position: relative; cursor: pointer; }
+        .top-bar .announcements::after {
+            content: '';
+            position: absolute; top: 4px; right: -6px;
+            width: 6px; height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed; top: 40px; left: 0; right: 0;
+            height: 64px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+            padding: 0 32px;
+            z-index: 999;
+            gap: 24px;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .logo span { color: var(--accent); }
+        .logo:hover { color: var(--text-primary); }
+
+        .nav-menu {
+            display: flex; gap: 4px;
+            list-style: none;
+            flex: 1;
+        }
+        .nav-menu li a {
+            display: block;
+            padding: 8px 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+        .nav-menu li a.active { color: var(--accent); }
+
+        .nav-actions {
+            display: flex; gap: 8px; align-items: center;
+            margin-left: auto;
+        }
+        .search-box {
+            position: relative;
+            display: flex; align-items: center;
+        }
+        .search-box input {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 8px 16px 8px 38px;
+            color: var(--text-primary);
+            font-size: 13px;
+            width: 200px;
+            outline: none;
+            transition: border-color 0.2s, width 0.2s;
+        }
+        .search-box input:focus {
+            border-color: var(--accent);
+            width: 260px;
+        }
+        .search-box input::placeholder { color: var(--text-muted); }
+        .search-box .icon {
+            position: absolute; left: 12px;
+            color: var(--text-muted);
+            font-size: 14px;
+            pointer-events: none;
+        }
+        .btn {
+            display: inline-flex; align-items: center;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px; font-weight: 600;
+            cursor: pointer; border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover { background: var(--accent-hover); color: white; }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        .btn-outline:hover { border-color: var(--text-muted); color: var(--text-primary); }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            margin-top: 104px;
+            padding: 48px 32px 32px;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 77, 77, 0.08), transparent),
+                var(--bg-primary);
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        .hero h1 span { color: var(--accent); }
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 24px;
+            line-height: 1.6;
+        }
+        .hero-meta {
+            display: flex; justify-content: center; gap: 24px;
+            font-size: 12px; color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .hero-meta span { display: flex; align-items: center; gap: 4px; }
+        .hero-stats {
+            display: flex; justify-content: center; gap: 32px;
+            margin-top: 24px;
+            padding: 16px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat .value {
+            font-size: 20px; font-weight: 700;
+            color: var(--accent);
+        }
+        .hero-stat .label {
+            font-size: 11px; color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            padding: 24px 32px 32px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-header {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .section-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-header h2 .badge {
+            background: var(--accent);
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .view-all {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .view-all:hover { color: var(--accent); }
+
+        /* ===== ANIME GRID ===== */
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+        .anime-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+        }
+        .anime-card:hover {
+            border-color: var(--border-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .anime-card .thumbnail {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: var(--bg-hover);
+            position: relative;
+            overflow: hidden;
+        }
+        .anime-card .thumbnail img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .anime-card:hover .thumbnail img { transform: scale(1.05); }
+        .anime-card .thumbnail .play-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .anime-card:hover .play-overlay { opacity: 1; }
+        .play-btn {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 18px;
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+        .anime-card .card-info {
+            padding: 10px 12px;
+        }
+        .anime-card .card-info .title {
+            font-size: 13px; font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        .anime-card .card-info .sub-title {
+            font-size: 11px; color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .anime-card .status-badge {
+            position: absolute;
+            top: 8px; right: 8px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px; font-weight: 600;
+            z-index: 2;
+        }
+        .status-ongoing {
+            background: rgba(255, 77, 77, 0.9);
+            color: white;
+        }
+        .status-completed {
+            background: rgba(77, 255, 150, 0.9);
+            color: #0a0a0f;
+        }
+        .status-movie {
+            background: rgba(77, 180, 255, 0.9);
+            color: white;
+        }
+        .status-new {
+            background: rgba(255, 180, 50, 0.9);
+            color: #0a0a0f;
+        }
+
+        /* ===== CATEGORY TABS ===== */
+        .category-tabs {
+            display: flex; gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            margin-bottom: 16px;
+            scrollbar-width: none;
+        }
+        .category-tabs::-webkit-scrollbar { display: none; }
+        .category-tab {
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 13px; font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .category-tab:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+        }
+        .category-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* ===== GENRE GRID ===== */
+        .genre-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+        .genre-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .genre-card:hover {
+            border-color: var(--accent);
+            background: var(--bg-hover);
+        }
+        .genre-card .genre-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .genre-card .genre-name {
+            font-size: 12px; font-weight: 600;
+        }
+        .genre-card .genre-count {
+            font-size: 10px; color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ===== STUDIO CARDS ===== */
+        .studio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .studio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .studio-card:hover {
+            border-color: var(--border-light);
+            background: var(--bg-hover);
+        }
+        .studio-card .studio-name {
+            font-size: 14px; font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .studio-card .studio-count {
+            font-size: 12px; color: var(--text-muted);
+        }
+
+        /* ===== SCHEDULE TABLE ===== */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .schedule-table th {
+            text-align: left;
+            padding: 8px 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+        }
+        .schedule-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .schedule-table tr:last-child td { border-bottom: none; }
+        .schedule-table td a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .schedule-table td a:hover { color: var(--accent); }
+        .schedule-table .ep-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--bg-hover);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-left: 4px;
+        }
+        .schedule-table .time {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 32px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 0;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex; justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .footer-section h3 {
+            font-size: 14px; font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        .footer-section ul {
+            list-style: none;
+        }
+        .footer-section ul li {
+            margin-bottom: 6px;
+        }
+        .footer-section ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+        .footer-section ul li a:hover { color: var(--accent); }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header { padding: 0 16px; gap: 12px; flex-wrap: wrap; height: auto; }
+            .nav-menu { order: 3; width: 100%; overflow-x: auto; padding-bottom: 4px; }
+            .nav-actions { margin-left: 0; }
+            .search-box input { width: 140px; }
+            .search-box input:focus { width: 180px; }
+            .section { padding: 16px 16px 24px; }
+            .hero { padding: 32px 16px 24px; }
+            .anime-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+            .footer-inner { flex-direction: column; }
+        }
+
+        /* ===== LOADING ANIMATION ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .anime-card { animation: fadeInUp 0.4s ease-out both; }
+        .anime-card:nth-child(1) { animation-delay: 0.02s; }
+        .anime-card:nth-child(2) { animation-delay: 0.06s; }
+        .anime-card:nth-child(3) { animation-delay: 0.10s; }
+        .anime-card:nth-child(4) { animation-delay: 0.14s; }
+        .anime-card:nth-child(5) { animation-delay: 0.18s; }
+        .anime-card:nth-child(6) { animation-delay: 0.22s; }
+        .anime-card:nth-child(7) { animation-delay: 0.26s; }
+        .anime-card:nth-child(8) { animation-delay: 0.30s; }
+
+        /* ===== MISC ===== */
+        .text-accent { color: var(--accent); }
+        .bg-card { background: var(--bg-card); }
+        .border-subtle { border: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="ads-info">
+            <span>📺 Streaming & Download Anime Sub Indo Gratis</span>
+        </div>
+        <div class="ads-info">
+            <a href="#">Terms</a>
+            <a href="#">DMCA</a>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="index.html" class="logo">Star<span> Anime</span></a>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Beranda</a></li>
+                <li><a href="#ongoing">Ongoing</a></li>
+                <li><a href="#completed">Selesai</a></li>
+                <li><a href="#movies">Film</a></li>
+                <li><a href="#donghua">Donghua</a></li>
+                <li><a href="#genres">Genre</a></li>
+                <li><a href="#studios">Studio</a></li>
+                <li><a href="#schedule">Jadwal</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions">
+            <div class="search-box">
+                <span class="icon">🔍</span>
+                <input type="text" placeholder="Cari anime...">
+            </div>
+            <a href="#" class="btn btn-outline">Login</a>
+            <a href="#" class="btn btn-primary">Daftar</a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Portal <span>Streaming</span> & Download Anime<br>Subtitle Indonesia</h1>
+        <p>Nonton & download anime sub Indo gratis sepuasnya. Streaming lancar, update tiap hari, koleksi lengkap dari anime ongoing, movie, sampai batch.</p>
+        <div class="hero-meta">
+            <span>⚡ Server Stabil</span>
+            <span>🎬 Update Tiap Hari</span>
+            <span>📥 MP4 & MKV</span>
+            <span>🇮🇩 Sub Indo Lengkap</span>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat"><div class="value">5,200+</div><div class="label">Anime</div></div>
+            <div class="hero-stat"><div class="value">12,800+</div><div class="label">Episode</div></div>
+            <div class="hero-stat"><div class="value">50+</div><div class="label">Studio</div></div>
+            <div class="hero-stat"><div class="value">100%</div><div class="label">Sub Indo</div></div>
+        </div>
+    </section>
+
+    <!-- POPULAR / TRENDING -->
+    <section class="section" id="popular">
+        <div class="section-header">
+            <h2>🔥 <span class="text-accent">Populer</span> Hari Ini</h2>
+            <a href="#" class="view-all">Lihat Semua →</a>
+        </div>
+        <div class="anime-grid">
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/onepiece/320/180" alt="One Piece" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">Ongoing</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">One Piece</div>
+                    <div class="sub-title">Episode 1117 • Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/jujutsu/320/180" alt="Jujutsu Kaisen" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">Ongoing</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Jujutsu Kaisen</div>
+                    <div class="sub-title">Season 2 • Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/demon/320/180" alt="Demon Slayer" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">Ongoing</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Demon Slayer</div>
+                    <div class="sub-title">Season 4 • Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/chainsaw/320/180" alt="Chainsaw Man" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">Selesai</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Chainsaw Man</div>
+                    <div class="sub-title">Batch Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/attack/320/180" alt="Attack on Titan" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">Selesai</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Attack on Titan</div>
+                    <div class="sub-title">The Final Season • Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/naruto/320/180" alt="Naruto" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">Selesai</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Naruto Shippuden</div>
+                    <div class="sub-title">Full Batch • Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/myhero/320/180" alt="My Hero Academia" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">Selesai</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">My Hero Academia</div>
+                    <div class="sub-title">Final Season • Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/spyxfamily/320/180" alt="Spy x Family" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">Ongoing</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Spy x Family</div>
+                    <div class="sub-title">Season 2 • Sub Indo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ON GOING -->
+    <section class="section" id="ongoing">
+        <div class="section-header">
+            <h2>📺 <span class="text-accent">Anime Ongoing</span></h2>
+            <a href="#" class="view-all">Semua Ongoing →</a>
+        </div>
+        <div class="category-tabs">
+            <a href="#" class="category-tab active">Semua</a>
+            <a href="#" class="category-tab">Action</a>
+            <a href="#" class="category-tab">Fantasy</a>
+            <a href="#" class="category-tab">Romance</a>
+            <a href="#" class="category-tab">Slice of Life</a>
+            <a href="#" class="category-tab">Shonen</a>
+            <a href="#" class="category-tab">Seinen</a>
+        </div>
+        <div class="anime-grid">
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/onePiece/320/180" alt="One Piece" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">_ep 1117</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">One Piece</div>
+                    <div class="sub-title">Ongoing • Eiichiro Oda</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/jujutsu/320/180" alt="Jujutsu Kaisen" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">_ep 23</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Jujutsu Kaisen 2</div>
+                    <div class="sub-title">Ongoing • MAPPA</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/demon/320/180" alt="Demon Slayer" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">_ep 11</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Demon Slayer 4</div>
+                    <div class="sub-title">Ongoing • ufotable</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/spyfamily/320/180" alt="Spy x Family" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">_ep 12</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Spy x Family 2</div>
+                    <div class="sub-title">Ongoing • Wit Studio</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/mashle/320/180" alt="Mashle" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">_ep 13</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Mashle 2</div>
+                    <div class="sub-title">Ongoing • A-1 Pictures</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/skeleton/320/180" alt="Skeleton Knight" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">_ep 10</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Skeleton Knight</div>
+                    <div class="sub-title">Ongoing • TNK</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPLETED -->
+    <section class="section" id="completed">
+        <div class="section-header">
+            <h2>✅ <span class="text-accent">Anime Selesai</span> (Batch)</h2>
+            <a href="#" class="view-all">Semua Selesai →</a>
+        </div>
+        <div class="anime-grid">
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/chain/320/180" alt="Chainsaw Man" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">12 Ep</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Chainsaw Man</div>
+                    <div class="sub-title">Batch Sub Indo • MAPPA</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/naruto/320/180" alt="Naruto" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">720 Ep</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Naruto Shippuden</div>
+                    <div class="sub-title">Batch Sub Indo • Pierrot</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/death/320/180" alt="Death Note" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">37 Ep</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Death Note</div>
+                    <div class="sub-title">Batch Sub Indo • Madhouse</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/attack/320/180" alt="Attack on Titan" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">87 Ep</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Attack on Titan</div>
+                    <div class="sub-title">Batch Sub Indo • WIT</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/steel/320/180" alt="Steins Gate" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">24 Ep</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Steins;Gate</div>
+                    <div class="sub-title">Batch Sub Indo • White Fox</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Anime page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/fullmetal/320/180" alt="Fullmetal Alchemist" onerror="this.style.display='none'">
+                    <span class="status-badge status-completed">64 Ep</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Fullmetal Alchemist BR</div>
+                    <div class="sub-title">Batch Sub Indo • Bones</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOVIES -->
+    <section class="section" id="movies">
+        <div class="section-header">
+            <h2>🎬 <span class="text-accent">Anime Movie</span></h2>
+            <a href="#" class="view-all">Semua Film →</a>
+        </div>
+        <div class="anime-grid">
+            <div class="anime-card" onclick="alert('Movie page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/onePieceFilm/320/180" alt="One Piece Film" onerror="this.style.display='none'">
+                    <span class="status-badge status-movie">Movie</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">One Piece Film: Red</div>
+                    <div class="sub-title">Sub Indo • 49 min</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Movie page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/ Suzume/320/180" alt="Suzume" onerror="this.style.display='none'">
+                    <span class="status-badge status-movie">Movie</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Suzume no Tojimari</div>
+                    <div class="sub-title">Sub Indo • 120 min</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Movie page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/spirit/320/180" alt="Spirited Away" onerror="this.style.display='none'">
+                    <span class="status-badge status-movie">Movie</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Spirited Away</div>
+                    <div class="sub-title">Sub Indo • 125 min</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Movie page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/YourName/320/180" alt="Your Name" onerror="this.style.display='none'">
+                    <span class="status-badge status-movie">Movie</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Kimi no Na wa</div>
+                    <div class="sub-title">Sub Indo • 106 min</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DONGHUA -->
+    <section class="section" id="donghua">
+        <div class="section-header">
+            <h2>🐉 <span class="text-accent">Donghua</span> (Anime China)</h2>
+            <a href="#" class="view-all">Semua Donghua →</a>
+        </div>
+        <div class="anime-grid">
+            <div class="anime-card" onclick="alert('Donghua page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/llama/320/180" alt="LLSA" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">Ongoing</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">Link Click (LLSA)</div>
+                    <div class="sub-title">Season 2 • Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Donghua page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/scam/320/180" alt="Scam" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">Ongoing</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">The Scam</div>
+                    <div class="sub-title">Batch Sub Indo</div>
+                </div>
+            </div>
+            <div class="anime-card" onclick="alert('Donghua page placeholder')">
+                <div class="thumbnail">
+                    <img src="https://picsum.photos/seed/anti/320/180" alt="Antihero" onerror="this.style.display='none'">
+                    <span class="status-badge status-ongoing">Ongoing</span>
+                    <div class="play-overlay"><div class="play-btn">▶</div></div>
+                </div>
+                <div class="card-info">
+                    <div class="title">anti-hero</div>
+                    <div class="sub-title">Season 2 • Sub Indo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GENRES -->
+    <section class="section" id="genres">
+        <div class="section-header">
+            <h2>🏷️ <span class="text-accent">Genre</span> Anime</h2>
+            <a href="#" class="view-all">Semua Genre →</a>
+        </div>
+        <div class="genre-grid">
+            <a href="#" class="genre-card">
+                <div class="genre-icon">⚔️</div>
+                <div class="genre-name">Action</div>
+                <div class="genre-count">842 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">🧙</div>
+                <div class="genre-name">Fantasy</div>
+                <div class="genre-count">621 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">💕</div>
+                <div class="genre-name">Romance</div>
+                <div class="genre-count">453 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">😂</div>
+                <div class="genre-name">Comedy</div>
+                <div class="genre-count">512 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">🔍</div>
+                <div class="genre-name">Mystery</div>
+                <div class="genre-count">287 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">👻</div>
+                <div class="genre-name">Horror</div>
+                <div class="genre-count">165 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">🎓</div>
+                <div class="genre-name">School Life</div>
+                <div class="genre-count">398 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">🚀</div>
+                <div class="genre-name">Sci-Fi</div>
+                <div class="genre-count">312 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">🏸</div>
+                <div class="genre-name">Sports</div>
+                <div class="genre-count">241 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">🐺</div>
+                <div class="genre-name">Shonen</div>
+                <div class="genre-count">726 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">🧐</div>
+                <div class="genre-name">Seinen</div>
+                <div class="genre-count">418 anime</div>
+            </a>
+            <a href="#" class="genre-card">
+                <div class="genre-icon">🌸</div>
+                <div class="genre-name">Slice of Life</div>
+                <div class="genre-count">534 anime</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- STUDIOS -->
+    <section class="section" id="studios">
+        <div class="section-header">
+            <h2>🎨 <span class="text-accent">Studio</span> Anime</h2>
+            <a href="#" class="view-all">Semua Studio →</a>
+        </div>
+        <div class="studio-grid">
+            <a href="#" class="studio-card">
+                <div class="studio-name">MAPPA</div>
+                <div class="studio-count">156 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">WIT Studio</div>
+                <div class="studio-count">124 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">ufotable</div>
+                <div class="studio-count">89 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">Kyoto Animation</div>
+                <div class="studio-count">112 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">Bones</div>
+                <div class="studio-count">167 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">Madhouse</div>
+                <div class="studio-count">203 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">A-1 Pictures</div>
+                <div class="studio-count">189 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">Toei Animation</div>
+                <div class="studio-count">312 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">Pierrot</div>
+                <div class="studio-count">98 anime</div>
+            </a>
+            <a href="#" class="studio-card">
+                <div class="studio-name">Sunrise</div>
+                <div class="studio-count">145 anime</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="section" id="schedule">
+        <div class="section-header">
+            <h2>📅 <span class="text-accent">Jadwal</span> Rilis Anime</h2>
+            <a href="#" class="view-all">Kalender Lengkap →</a>
+        </div>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Anime</th>
+                    <th>Episode</th>
+                    <th>Tanggal Rilis</th>
+                    <th>Jam (WIB)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="#">One Piece</a></td>
+                    <td><span class="ep-badge">Ep 1118</span></td>
+                    <td>Hari Ini</td>
+                    <td class="time">18:00 WIB</td>
+                    <td><span class="status-badge status-ongoing">Sedang Rilis</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#">Jujutsu Kaisen 2</a></td>
+                    <td><span class="ep-badge">Ep 24</span></td>
+                    <td>Hari Ini</td>
+                    <td class="time">12:00 WIB</td>
+                    <td><span class="status-badge status-ongoing">Sedang Rilis</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#">Demon Slayer 4</a></td>
+                    <td><span class="ep-badge">Ep 12</span></td>
+                    <td>Besok</td>
+                    <td class="time">17:00 WIB</td>
+                    <td><span class="status-badge status-ongoing">Sedang Rilis</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#">Spy x Family 2</a></td>
+                    <td><span class="ep-badge">Ep 13</span></td>
+                    <td>Besok</td>
+                    <td class="time">15:00 WIB</td>
+                    <td><span class="status-badge status-ongoing">Sedang Rilis</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#">Mashle 2</a></td>
+                    <td><span class="ep-badge">Ep 14</span></td>
+                    <td>2 hari lagi</td>
+                    <td class="time">23:00 WIB</td>
+                    <td><span class="status-badge status-new">Coming Soon</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#">chainsaw man</a></td>
+                    <td><span class="ep-badge">Batch</span></td>
+                    <td>Selesai</td>
+                    <td class="time">Tersedia</td>
+                    <td><span class="status-badge status-completed">Batch Lengkap</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#">Naruto Shippuden</a></td>
+                    <td><span class="ep-badge">Batch</span></td>
+                    <td>Selesai</td>
+                    <td class="time">Tersedia</td>
+                    <td><span class="status-badge status-completed">Batch Lengkap</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-section">
+                <h3>Star Anime</h3>
+                <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.6;">
+                    Portal download dan streaming anime subtitle Indonesia lengkap dan gratis.
+                    Koleksi tiap hari update, dari anime ongoing, movie, batch, sampai donghua.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Navigasi</h3>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="#">Anime Ongoing</a></li>
+                    <li><a href="#">Anime Selesai</a></li>
+                    <li><a href="#">Anime Movie</a></li>
+                    <li><a href="#">Donghua</a></li>
+                    <li><a href="#">Jadwal Rilis</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Kategori</h3>
+                <ul>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Fantasy</a></li>
+                    <li><a href="#">Romance</a></li>
+                    <li><a href="#">Comedy</a></li>
+                    <li><a href="#">Shonen</a></li>
+                    <li><a href="#">Seinen</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Informasi</h3>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Kontak</a></li>
+                    <li><a href="#">DMCA</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Star Anime. Portal Anime Sub Indo.</span>
+            <span>Server 1 • Server 2 • Server 3</span>
+            <span>Made with ❤️ for Anime Community Indonesia</span>
+        </div>
+    </footer>
+
+    <script>
+        // Category tab switching (simple)
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                this.parentElement.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Search box focus effect
+        document.querySelector('.search-box input').addEventListener('focus', function() {
+            if (this.value === '') this.placeholder = 'Cari judul, genre, studio...';
+        });
+        document.querySelector('.search-box input').addEventListener('blur', function() {
+            if (this.value === '') this.placeholder = 'Cari anime...';
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('.section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 200;
+                if (scrollY >= top) current = section.getAttribute('id');
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
