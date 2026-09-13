@@ -48,20 +48,16 @@ const ANIME_DB = {
       12: { title: "Ep 12 — Akhir yang Manis", cover: "https://picsum.photos/seed/gb12/320/180" }
     },
     streaming: {
-      // GANTI VIDEO_ID_NYA DENGAN ID YOUTUBE / EMBED LINK ASLI SETIAP EPISODE
-      base: "https://www.youtube.com/embed/VIDEO_ID_GRAND_BLUE",
-      note: "Streaming video akan muncul di sini setelah Link Asli Diisi"
+      folder: "https://mega.nz/folder/HGhmiB7T#SjDrrcU7cihEp5UN8n7kLw",
+      note: "Streaming via MEGA — buka folder untuk menonton"
     },
     download: {
-      "360p": { server: "MiteDrive", url: "#", size: "±350 MB", note: "GANTI DENGAN LINK 360p" },
-      "480p": { server: "Usersdrive", url: "#", size: "±550 MB", note: "GANTI DENGAN LINK 480p" },
-      "720p": { server: "Berkasdrive", url: "#", size: "±1.2 GB", note: "GANTI DENGAN LINK 720p" },
-      "720p-alt": { server: "Terabox", url: "#", size: "±1.2 GB", note: "GANTI DENGAN LINK 720p (Alt)" }
+      "720p-rar": { server: "MiteDrive", url: "https://mitedrive.com/view/jbty2vijdy5y1i252nyio", size: "1 GB", note: "[STARANIME] GrandBlue (720p).rar" }
     },
     batch: {
       title: "Batch Grand Blue Season 1 (12 Episode)",
-      note: "GANTI DENGAN LINK BATCH",
-      url: "#"
+      note: "[STARANIME] GrandBlue (720p).rar — 1 GB",
+      url: "https://mitedrive.com/view/jbty2vijdy5y1i252nyio"
     },
     related: [
       { id: "grand-blue-s2", title: "Grand Blue Season 2", cover: "https://picsum.photos/seed/gbs2/320/180" }
