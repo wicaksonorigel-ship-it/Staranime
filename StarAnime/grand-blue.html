@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Star Anime - Grand Blue Sub Indo | Streaming & Download</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  background: #0a0a0f;
+  color: #e8e8ed;
+  min-height: 100vh;
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+  position: fixed; top:0; left:0; right:0;
+  height: 40px; background: #12121a;
+  border-bottom: 1px solid #2a2a36;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; z-index: 1000; font-size: 12px; color: #9a9aab;
+}
+.topbar .brands { display: flex; align-items: center; gap: 8px; }
+.topbar .brands span { font-size: 11px; }
+
+/* ===== HEADER ===== */
+header {
+  position: fixed; top: 40px; left:0; right:0;
+  height: 56px; background: #12121a;
+  border-bottom: 1px solid #2a2a36;
+  display: flex; align-items: center;
+  padding: 0 24px; z-index: 999; gap: 16px;
+}
+.logo {
+  font-size: 20px; font-weight: 800; color: #e8e8ed;
+  text-decoration: none; white-space: nowrap; letter-spacing: -0.5px;
+}
+.logo span { color: #ff4d4d; }
+.nav { display: flex; gap: 2px; list-style: none; }
+.nav li a {
+  display: block; padding: 6px 12px; color: #9a9aab;
+  text-decoration: none; font-size: 13px; font-weight: 500;
+  border-radius: 6px; transition: all 0.2s; white-space: nowrap;
+}
+.nav li a:hover, .nav li a.active { color: #e8e8ed; background: #22222e; }
+.nav li a.active { color: #ff4d4d; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 12px; background: transparent;
+  border: 1px solid #2a2a36; border-radius: 6px;
+  color: #9a9aab; text-decoration: none; font-size: 13px;
+  transition: all 0.2s; margin-right: auto;
+}
+.back-btn:hover { border-color: #3a3a46; color: #e8e8ed; }
+.actions { display: flex; gap: 6px; align-items: center; margin-left: auto; }
+.search { position: relative; }
+.search input {
+  background: #1a1a24; border: 1px solid #2a2a36;
+  border-radius: 20px; padding: 6px 14px 6px 34px;
+  color: #e8e8ed; font-size: 12px; width: 160px; outline: none;
+  transition: border-color 0.2s, width 0.2s;
+}
+.search input:focus { border-color: #ff4d4d; width: 220px; }
+.search input::placeholder { color: #5a5a6a; }
+.search .icon { position: absolute; left: 10px; top: 50%;
+  transform: translateY(-50%); color: #5a5a6a; font-size: 12px; pointer-events: none; }
+.btn {
+  display: inline-flex; align-items: center;
+  padding: 6px 14px; border-radius: 6px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  border: none; transition: all 0.2s; text-decoration: none;
+}
+.btn-primary { background: #ff4d4d; color: white; }
+.btn-primary:hover { background: #ff6b6b; color: white; }
+.btn-outline { background: transparent; border: 1px solid #2a2a36;
+  color: #9a9aab; }
+.btn-outline:hover { border-color: #3a3a46; color: #e8e8ed; }
+
+/* ===== BACK BUTTON ===== */
+.back-wrapper { position: relative; }
+
+/* ===== HERO DETAIL ===== */
+.detail-hero {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  padding: 32px 32px 24px;
+  background: radial-gradient(ellipse 60% 40% at 10% 0%, rgba(255,77,77,0.08), transparent), #0a0a0f;
+  border-bottom: 1px solid #2a2a36;
+  align-items: start;
+}
+.cover-banner {
+  width: 260px; height: 370px; border-radius: 10px;
+  overflow: hidden; background: #1a1a24; border: 1px solid #2a2a36;
+  position: relative; flex-shrink: 0; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.cover-banner img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.cover-banner:hover img { transform: scale(1.03); }
+.cover-badge {
+  position: absolute; top: 10px; left: 10px;
+  background: rgba(255,77,77,0.9); color: white;
+  padding: 3px 10px; border-radius: 5px; font-size: 10px;
+  font-weight: 700; z-index: 2; text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.cover-badge.live { background: rgba(77,255,150,0.9); color: #0a0a0f; }
+.cover-badge.done { background: rgba(77,180,255,0.9); color: #0a0a0f; }
+.detail-content { flex: 1; min-width: 0; }
+.detail-content .page-title {
+  font-size: clamp(22px, 3.5vw, 30px); font-weight: 800;
+  letter-spacing: -0.5px; margin-bottom: 4px; line-height: 1.15;
+  color: #e8e8ed;
+}
+.detail-content .page-title-en {
+  font-size: 13px; color: #5a5a6a; margin-bottom: 12px;
+  font-weight: 400; letter-spacing: 0.3px;
+}
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; align-items: center; }
+.meta-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; background: #1a1a24;
+  border: 1px solid #2a2a36; border-radius: 16px;
+  font-size: 11px; color: #9a9aab; font-weight: 500;
+  text-transform: capitalize;
+}
+.meta-chip.genre { color: #9a9aab; }
+.meta-chip.type { border-color: rgba(77,255,150,0.2); color: #4dff96; }
+.meta-chip.status { border-color: rgba(77,180,255,0.2); color: #4db4ff; }
+.meta-chip.season-active { border-color: #ff4d4d; color: #ff4d4d; }
+.rating-block {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; background: #1a1a24;
+  border: 1px solid rgba(255,107,107,0.2);
+  border-radius: 16px; font-size: 11px; color: #ff6b6b;
+  font-weight: 600;
+}
+.rating-score { font-size: 14px; font-weight: 700; }
+.synopsis-box {
+  font-size: 13px; color: #9a9aab; line-height: 1.7;
+  padding: 14px 16px; background: #1a1a24;
+  border-radius: 8px; border: 1px solid #2a2a36;
+  margin-bottom: 20px;
+}
+.synopsis-box strong { color: #e8e8ed; display: block; margin-bottom: 4px; }
+
+/* ===== SEASON TABS ===== */
+.season-nav {
+  display: flex; gap: 8px; padding: 16px 32px;
+  justify-content: center; flex-wrap: wrap;
+  background: #12121a; border-bottom: 1px solid #2a2a36;
+}
+.season-nav a {
+  padding: 6px 18px; border-radius: 18px;
+  background: #1a1a24; border: 1px solid #2a2a36;
+  color: #9a9aab; text-decoration: none; font-size: 12px; font-weight: 600;
+  transition: all 0.2s;
+}
+.season-nav a:hover { border-color: #ff4d4d; color: #e8e8ed; }
+.season-nav a.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+.season-nav a .season-num { font-weight: 700; margin-right: 4px; }
+
+/* ===== EPISODE LIST SECTION ===== */
+.ep-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.ep-section h2 {
+  font-size: 16px; font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+  color: #e8e8ed;
+}
+.ep-section h2 .episode-count {
+  background: #1a1a24; padding: 2px 8px; border-radius: 6px;
+  font-size: 12px; color: #9a9aab; font-weight: 500;
+  margin-left: 6px;
+}
+.ep-toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+}
+.ep-filter { display: flex; gap: 6px; }
+.ep-filter a {
+  padding: 4px 10px; border-radius: 4px;
+  background: #1a1a24; border: 1px solid #2a2a36;
+  color: #9a9aab; text-decoration: none; font-size: 11px;
+  font-weight: 500; transition: all 0.2s;
+}
+.ep-filter a:hover { border-color: #3a3a46; color: #e8e8ed; }
+.ep-filter a.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+.ep-view-all {
+  color: #9a9aab; text-decoration: none; font-size: 12px;
+  font-weight: 500; transition: color 0.2s;
+}
+.ep-view-all:hover { color: #ff4d4d; }
+
+.ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.ep-card {
+  background: #1a1a24; border: 1px solid #2a2a36; border-radius: 8px;
+  padding: 10px; text-align: center; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; color: #e8e8ed;
+  display: block;
+}
+.ep-card:hover { border-color: #ff4d4d; background: #22222e; transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255,77,77,0.2); }
+.ep-card.active-ep { border-color: #ff4d4d; background: rgba(255,77,77,0.08); }
+.ep-thumb {
+  width: 100%; aspect-ratio: 16/9; background: #22222e;
+  border-radius: 6px; overflow: hidden; margin-bottom: 6px;
+  position: relative;
+}
+.ep-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.ep-card:hover .ep-thumb img { transform: scale(1.05); }
+.ep-thumb .play-overlay {
+  position: absolute; top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.4); display: flex; align-items: center;
+  justify-content: center; opacity: 0; transition: opacity 0.2s;
+}
+.ep-card:hover .play-overlay { opacity: 1; }
+.ep-play-icon {
+  width: 32px; height: 32px; border-radius: 50%; background: #ff4d4d;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 14px; box-shadow: 0 2px 8px rgba(255,77,77,0.4);
+}
+.ep-title { font-size: 11px; font-weight: 600; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+.ep-meta { font-size: 10px; color: #5a5a6a; }
+.ep-status-badge {
+  display: inline-block; padding: 1px 6px; border-radius: 3px;
+  font-size: 9px; font-weight: 600; margin-top: 4px;
+}
+.ep-status-new { background: rgba(255,180,50,0.9); color: #0a0a0f; }
+.ep-status-live { background: rgba(77,255,150,0.9); color: #0a0a0f; }
+
+/* ===== VIDEO PLAYER SECTION ===== */
+.video-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.video-section h2 {
+  font-size: 16px; font-weight: 700; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.video-wrapper {
+  width: 100%; aspect-ratio: 16/9; background: #000;
+  border-radius: 10px; overflow: hidden; border: 1px solid #2a2a36;
+  position: relative; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.video-wrapper iframe, .video-wrapper video {
+  width: 100%; height: 100%; border: none; display: block;
+}
+.video-wrapper .video-placeholder {
+  width: 100%; height: 100%; background: #1a1a24;
+  display: flex; align-items: center; justify-content: center;
+  color: #5a5a6a; font-size: 14px; flex-direction: column;
+  gap: 8px;
+}
+.video-wrapper .video-placeholder .pp-icon {
+  font-size: 48px; color: #ff4d4d;
+}
+.server-selector {
+  display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+}
+.server-btn {
+  padding: 6px 16px; border-radius: 6px; font-size: 12px;
+  font-weight: 600; cursor: pointer; border: 1px solid #2a2a36;
+  background: #1a1a24; color: #9a9aab; transition: all 0.2s;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.server-btn:hover { border-color: #3a3a46; color: #e8e8ed; }
+.server-btn.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+.server-btn.live { background: rgba(77,255,150,0.1); border-color: rgba(77,255,150,0.3); color: #4dff96; }
+.server-btn .server-dot { width: 8px; height: 8px; border-radius: 50%; background: #4dff96; }
+
+/* ===== DOWNLOAD SECTION ===== */
+.dl-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.dl-section h2 {
+  font-size: 16px; font-weight: 700; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.dl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.dl-card {
+  background: #1a1a24; border: 1px solid #2a2a36; border-radius: 8px;
+  padding: 14px; text-align: center; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; color: #e8e8ed;
+  display: block;
+}
+.dl-card:hover { border-color: #ff4d4d; background: #22222e; transform: translateY(-2px); }
+.dl-card .dl-icon { font-size: 28px; margin-bottom: 6px; }
+.dl-card .dl-label { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.dl-card .dl-size { font-size: 11px; color: #5a5a6a; margin-bottom: 8px; }
+.dl-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 600; margin-top: 4px;
+}
+.dl-badge-free { background: rgba(77,255,150,0.1); color: #4dff96;
+  border: 1px solid rgba(77,255,150,0.3); }
+.dl-badge-new { background: rgba(255,180,50,0.1); color: #ffb432;
+  border: 1px solid rgba(255,180,50,0.3); }
+
+/* ===== OTHER INFO ===== */
+.info-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.info-section h2 {
+  font-size: 16px; font-weight: 700; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.info-card {
+  background: #1a1a24; border: 1px solid #2a2a36; border-radius: 10px;
+  padding: 16px;
+}
+.info-card h3 {
+  font-size: 13px; font-weight: 600; color: #ff4d4d;
+  margin-bottom: 8px; text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.info-card p { font-size: 12px; color: #9a9aab; line-height: 1.6; }
+
+/* ===== FOOTER ===== */
+.footer { padding: 24px 32px; background: #12121a; border-top: 1px solid #2a2a36; }
+.footer-inner { max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-section h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: #e8e8ed; }
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 4px; }
+.footer-section ul li a { color: #9a9aab; text-decoration: none;
+  font-size: 12px; transition: color 0.2s; }
+.footer-section ul li a:hover { color: #ff4d4d; }
+.footer-bottom {
+  max-width: 1200px; margin: 16px auto 0; padding-top: 12px;
+  border-top: 1px solid #2a2a36; display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px;
+  color: #5a5a6a;
+}
+
+/* ===== ANIME DETAIL STYLES (from preview.html) ===== */
+.anime-detail-hero {
+  display: grid; grid-template-columns: 280px 1fr; gap: 32px;
+  padding: 48px 32px; background: radial-gradient(ellipse 60% 40% at 20% 0%, rgba(255,77,77,0.1), transparent), #0a0a0f;
+  border-bottom: 1px solid #2a2a36; align-items: start;
+}
+.anime-cover-banner {
+  width: 280px; height: 400px; border-radius: 12px;
+  overflow: hidden; background: #22222e; border: 1px solid #2a2a36;
+  position: relative; flex-shrink: 0;
+}
+.anime-cover-banner img { width: 100%; height: 100%; object-fit: cover; }
+.anime-cover-banner .cover-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: rgba(255,77,77,0.9); color: white;
+  padding: 4px 12px; border-radius: 6px; font-size: 11px;
+  font-weight: 600; z-index: 2;
+}
+.anime-detail-content { flex: 1; }
+.anime-detail-content .anime-title {
+  font-size: clamp(24px, 4vw, 36px); font-weight: 800;
+  letter-spacing: -0.5px; margin-bottom: 8px; line-height: 1.2;
+}
+.anime-detail-content .anime-title-en { font-size: 14px; color: #5a5a6a;
+  margin-bottom: 16px; font-weight: 400; }
+.anime-meta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; align-items: center; }
+.anime-meta-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 12px; background: #1a1a24; border: 1px solid #2a2a36;
+  border-radius: 20px; font-size: 12px; color: #9a9aab; font-weight: 500;
+}
+.anime-meta-chip.active { border-color: #ff4d4d; color: #ff4d4d; }
+.anime-meta-chip.rating { color: #ff6b6b; border-color: rgba(255,107,107,0.3); }
+.anime-rating-score { font-size: 18px; font-weight: 700; color: #ff6b6b; margin-left: 4px; }
+.anime-synopsis {
+  font-size: 14px; color: #9a9aab; line-height: 1.7;
+  padding: 16px 20px; background: #1a1a24; border-radius: 8px;
+  border: 1px solid #2a2a36; margin-bottom: 24px;
+}
+.anime-synopsis strong { color: #e8e8ed; }
+
+.episode-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.episode-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px; }
+.episode-tabs { display: flex; gap: 6px; overflow-x: auto;
+  padding-bottom: 8px; margin-bottom: 16px; scrollbar-width: none; }
+.episode-tabs::-webkit-scrollbar { display: none; }
+.episode-tab {
+  padding: 6px 16px; border-radius: 6px; background: #1a1a24;
+  border: 1px solid #2a2a36; color: #9a9aab; font-size: 12px;
+  font-weight: 500; cursor: pointer; white-space: nowrap;
+  transition: all 0.2s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.episode-tab:hover { border-color: #3a3a46; color: #e8e8ed; }
+.episode-tab.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+.episode-tab .ep-num { font-weight: 700; }
+.episode-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.episode-card {
+  background: #1a1a24; border: 1px solid #2a2a36; border-radius: 8px;
+  padding: 10px; text-align: center; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; color: #e8e8ed;
+}
+.episode-card:hover { border-color: #ff4d4d; background: #22222e; transform: translateY(-2px); }
+.episode-card .ep-thumb {
+  width: 100%; aspect-ratio: 16/9; background: #22222e;
+  border-radius: 6px; overflow: hidden; margin-bottom: 8px;
+}
+.episode-card .ep-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.episode-card .ep-title { font-size: 12px; font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.episode-card .ep-date { font-size: 10px; color: #5a5a6a; margin-top: 2px; }
+.episode-card.active-ep { border-color: #ff4d4d; background: rgba(255,77,77,0.1); }
+
+.video-player-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.video-player-wrapper {
+  width: 100%; aspect-ratio: 16/9; background: #000;
+  border-radius: 12px; overflow: hidden; border: 1px solid #2a2a36;
+  position: relative;
+}
+.video-player-wrapper iframe, .video-player-wrapper video { width: 100%; height: 100%; border: none; display: block; }
+.video-server-selector { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.server-btn {
+  padding: 6px 16px; border-radius: 6px; font-size: 12px;
+  font-weight: 600; cursor: pointer; border: 1px solid #2a2a36;
+  background: #1a1a24; color: #9a9aab; transition: all 0.2s;
+}
+.server-btn:hover { border-color: #3a3a46; color: #e8e8ed; }
+.server-btn.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+.server-btn.live { background: rgba(77,255,150,0.1); border-color: rgba(77,255,150,0.3); color: #4dff96; }
+
+.download-section { padding: 24px 32px; border-bottom: 1px solid #2a2a36; }
+.download-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+.download-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.download-card {
+  background: #1a1a24; border: 1px solid #2a2a36; border-radius: 10px;
+  padding: 16px; text-align: center; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; color: #e8e8ed;
+}
+.download-card:hover { border-color: #ff4d4d; background: #22222e; }
+.download-card .dl-icon { font-size: 32px; margin-bottom: 8px; }
+.download-card .dl-label { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.download-card .dl-size { font-size: 11px; color: #5a5a6a; }
+.download-card .dl-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 10px; font-weight: 600; margin-top: 6px;
+}
+.dl-badge-free { background: rgba(77,255,150,0.1); color: #4dff96; border: 1px solid rgba(77,255,150,0.3); }
+.dl-badge-new { background: rgba(255,180,50,0.1); color: #ffb432; border: 1px solid rgba(255,180,50,0.3); }
+
+.tutorial-list { display: flex; flex-direction: column; gap: 16px; }
+.tutorial-card {
+  background: #1a1a24; border: 1px solid #2a2a36; border-radius: 12px;
+  overflow: hidden; transition: all 0.2s;
+}
+.tutorial-card:hover { border-color: #3a3a46; }
+.tutorial-header { display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px; }
+.tutorial-thumb { width: 180px; height: 100px; background: #22222e; border-radius: 8px; flex-shrink: 0; overflow: hidden; }
+.tutorial-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.tutorial-content { flex: 1; }
+.tutorial-content h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.tutorial-content .tut-meta { font-size: 12px; color: #5a5a6a; margin-bottom: 8px; display: flex; gap: 12px; }
+.tutorial-content .tut-desc { font-size: 13px; color: #9a9aab; line-height: 1.6; }
+.tutorial-content .tut-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.tut-tag { padding: 3px 10px; border-radius: 12px; font-size: 11px; background: #22222e; color: #9a9aab; border: 1px solid #2a2a36; }
+.tut-tag.tut-tag-green { background: rgba(77,255,150,0.1); border-color: rgba(77,255,150,0.3); color: #4dff96; }
+.tut-tag.tut-tag-blue { background: rgba(77,180,255,0.1); border-color: rgba(77,180,255,0.3); color: #4db4ff; }
+.tutorial-body { border-top: 1px solid #2a2a36; padding: 16px 20px; }
+.tutorial-body p { font-size: 13px; color: #9a9aab; line-height: 1.7; margin-bottom: 8px; }
+.tutorial-body code { background: #22222e; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: #ff6b6b; font-family: 'Consolas', monospace; }
+.tutorial-body ol, .tutorial-body ul { margin: 8px 0 8px 20px; font-size: 13px; color: #9a9aab; line-height: 1.7; }
+.tutorial-body li { margin-bottom: 4px; }
+.tutorial-body strong { color: #e8e8ed; }
+.tutorial-body .note { background: rgba(255,77,77,0.1); border-left: 3px solid #ff4d4d; padding: 8px 12px; border-radius: 4px; margin: 12px 0; font-size: 12px; color: #ff6b6b; }
+
+.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.media-card { background: #1a1a24; border: 1px solid #2a2a36; border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.25s; }
+.media-card:hover { border-color: #3a3a46; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.video-wrapper iframe, .video-wrapper video { width: 100%; height: 100%; border: none; display: block; }
+.video-thumb { width: 100%; aspect-ratio: 16/9; background: #22222e; position: relative; cursor: pointer; overflow: hidden; }
+.video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.media-card:hover .video-thumb img { transform: scale(1.03); }
+.video-play-overlay { position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
+.media-card:hover .video-play-overlay { opacity: 1; }
+.vplaybtn { width: 56px; height: 56px; border-radius: 50%; background: #ff4d4d; display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; box-shadow: 0 4px 20px rgba(255,77,77,0.4); }
+.media-info { padding: 12px 14px; }
+.media-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.media-info p { font-size: 12px; color: #5a5a6a; line-height: 1.5; }
+.media-meta { display: flex; gap: 8px; font-size: 11px; color: #5a5a6a; margin-top: 6px; }
+.media-meta span { display: flex; align-items: center; gap: 3px; }
+
+.table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table th { text-align: left; padding: 8px 12px; color: #5a5a6a; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #2a2a36; }
+.table td { padding: 10px 12px; border-bottom: 1px solid #2a2a36; vertical-align: middle; }
+.table tr:last-child td { border-bottom: none; }
+.table td a { color: #e8e8ed; text-decoration: none; font-weight: 500; }
+.table td a:hover { color: #ff4d4d; }
+.ep { display: inline-block; padding: 2px 8px; background: #22222e; border-radius: 4px; font-size: 11px; color: #ff4d4d; font-weight: 600; margin-left: 4px; }
+.time { color: #9a9aab; font-size: 12px; }
+
+.genre-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.genre-card { background: #1a1a24; border: 1px solid #2a2a36; border-radius: 8px; padding: 14px 12px; text-align: center; cursor: pointer; transition: all 0.2s; text-decoration: none; color: #e8e8ed; }
+.genre-card:hover { border-color: #ff4d4d; background: #22222e; }
+.genre-card .icon { font-size: 24px; margin-bottom: 6px; }
+.genre-card .name { font-size: 12px; font-weight: 600; }
+.genre-card .count { font-size: 10px; color: #5a5a6a; margin-top: 2px; }
+
+.studio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.studio-card { background: #1a1a24; border: 1px solid #2a2a36; border-radius: 10px; padding: 16px; cursor: pointer; transition: all 0.2s; text-decoration: none; color: #e8e8ed; }
+.studio-card:hover { border-color: #3a3a46; background: #22222e; }
+.studio-card .sname { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.studio-card .scount { font-size: 12px; color: #5a5a6a; }
+
+.tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 16px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { padding: 6px 16px; border-radius: 20px; background: #1a1a24; border: 1px solid #2a2a36; color: #9a9aab; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.tab:hover { border-color: #3a3a46; color: #e8e8ed; }
+.tab.active { background: #ff4d4d; border-color: #ff4d4d; color: white; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.card { background: #1a1a24; border: 1px solid #2a2a36; border-radius: 10px; overflow: hidden; cursor: pointer; transition: all 0.25s; position: relative; animation: fadeInUp 0.4s ease-out both; }
+.card:hover { border-color: #3a3a46; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.thumb { width: 100%; aspect-ratio: 16/9; background: #22222e; position: relative; overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.card:hover .thumb img { transform: scale(1.05); }
+.overlay { position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
+.card:hover .overlay { opacity: 1; }
+.playbtn { width: 48px; height: 48px; border-radius: 50%; background: #ff4d4d; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 0 4px 16px rgba(255,77,77,0.3); }
+.info { padding: 10px 12px; }
+.info .title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+.info .sub { font-size: 11px; color: #5a5a6a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge-ongoing { position: absolute; top: 8px; right: 8px; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; z-index: 2; background: rgba(255,77,77,0.9); color: white; }
+.badge-completed { background: rgba(77,255,150,0.9); color: #0a0a0f; }
+.badge-movie { background: rgba(77,180,255,0.9); color: white; }
+.badge-new { background: rgba(255,180,50,0.9); color: #0a0a0f; }
+
+.hero { margin-top: 104px; padding: 48px 32px 32px; background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,77,77,0.08), transparent), #0a0a0f; text-align: center; }
+.hero h1 { font-size: clamp(28px,5vw,44px); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+.hero h1 span { color: #ff4d4d; }
+.hero p { color: #9a9aab; font-size: 16px; max-width: 600px; margin: 0 auto 24px; line-height: 1.6; }
+.hero-meta { display: flex; justify-content: center; gap: 24px; font-size: 12px; color: #5a5a6a; margin-bottom: 16px; }
+.hero-stats { display: flex; justify-content: center; gap: 32px; margin-top: 24px; padding: 16px; background: #1a1a24; border-radius: 12px; border: 1px solid #2a2a36; }
+.hero-stat { text-align: center; }
+.hero-stat .value { font-size: 20px; font-weight: 700; color: #ff4d4d; }
+.hero-stat .label { font-size: 11px; color: #5a5a6a; margin-top: 2px; }
+
+.section { padding: 24px 32px 32px; border-bottom: 1px solid #2a2a36; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.section-header h2 { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.viewall { color: #9a9aab; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+.viewall:hover { color: #ff4d4d; }
+
+.footer { padding: 32px; background: #12121a; border-top: 1px solid #2a2a36; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.card:nth-child(1) { animation-delay: 0.02s; } .card:nth-child(2) { animation-delay: 0.06s; } .card:nth-child(3) { animation-delay: 0.10s; } .card:nth-child(4) { animation-delay: 0.14s; } .card:nth-child(5) { animation-delay: 0.18s; } .card:nth-child(6) { animation-delay: 0.22s; } .card:nth-child(7) { animation-delay: 0.26s; } .card:nth-child(8) { animation-delay: 0.30s; }
+
+@media (max-width: 768px) {
+  header { padding: 0 16px; gap: 12px; flex-wrap: wrap; height: auto; }
+  .nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: 4px; }
+  .actions { margin-left: 0; }
+  .search input { width: 120px; } .search input:focus { width: 160px; }
+  .section { padding: 16px 16px 24px; }
+  .hero { padding: 32px 16px 24px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .footer-inner { flex-direction: column; }
+  .detail-hero { grid-template-columns: 1fr; padding: 20px 16px; }
+  .cover-banner { width: 100%; max-width: 180px; height: 260px; margin: 0 auto; }
+  .anime-detail-hero { grid-template-columns: 1fr; padding: 24px 16px; }
+  .anime-cover-banner { width: 100%; max-width: 200px; height: 280px; margin: 0 auto; }
+  .episode-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+  .info-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brands">
+    <a href="/" style="color:#ff4d4d;text-decoration:none;font-weight:600">⬅ Beranda</a>
+  </div>
+  <span>Streaming & Download Anime Sub Indo Gratis</span>
+  <div class="brands">
+    <a href="#" style="color:#ff4d4d;text-decoration:none">About</a>
+    <a href="#" style="color:#ff4d4d;text-decoration:none">DMCA</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <a href="/" class="back-btn">⬅ Kembali</a>
+  <div class="logo">Star Anime<span> | Grand Blue</span></div>
+  <div class="nav">
+    <li><a href="#" class="active">Grand Blue</a></li>
+    <li><a href="#">Season 1</a></li>
+    <li><a href="#">Season 2</a></li>
+    <li><a href="#">Season 3</a></li>
+    <li><a href="#">Download</a></li>
+  </div>
+  <div class="actions">
+    <div class="search">
+      <span class="icon">🔍</span>
+      <input type="text" placeholder="Cari anime..." value="Grand Blue">
+    </div>
+    <a href="#" class="btn btn-outline">Login</a>
+    <a href="#" class="btn btn-primary">Daftar</a>
+  </div>
+</header>
+
+<!-- DETAIL HERO -->
+<section class="detail-hero">
+  <div class="cover-banner">
+    <img src="https://nimegami.id/wp-content/uploads/2018/07/Grand-Blue-700x502.jpeg" 
+      alt="Grand Blue Cover" 
+      onerror="this.src='https://picsum.photos/seed/grandblue/320/450'; this.onerror=null">
+    <div class="cover-badge" style="background:rgba(77,180,255,0.9);color:#0a0a0f">COMPLETED</div>
+  </div>
+  <div class="detail-content">
+    <h1 class="page-title">Grand Blue</h1>
+    <div class="page-title-en">ぐらんぶる (Guramburu)</div>
+    
+    <div class="meta-row">
+      <span class="meta-chip genre">😂 Comedy</span>
+      <span class="meta-chip genre">🍺 Slice of Life</span>
+      <span class="meta-chip genre">🏖️ Seinen</span>
+      <span class="meta-chip type">TV Series</span>
+      <span class="meta-chip status">Completed</span>
+      <span class="meta-chip">2018</span>
+      <span class="meta-chip">12 Ep/season</span>
+      <span class="rating-block">
+        🌟 Rating <span class="rating-score">7.9/10</span>
+      </span>
+    </div>
+
+    <div class="synopsis-box">
+      <strong>📖 Synopsis</strong>
+      Sekitar pantai Izu, Kitahara Iori baru saja masuk Universitas Izu. Di sana dia memulai kehidupan barunya sebagai mahasiswa, pindah ke toko bernama Grand Blue milik pamannya. Dia bersemangat memulai kehidupan baru di Izu bersama teman-teman baru yang ramah dan cewek cantik. Tapi saat memulai, dia bertemu geng kakak kelas yang sedang loyo mabuk miras — dan dipaksa ikut aktivitas mereka: berenang! Akankah Iori bisa memulai kehidupan damai, atau malah semakin rumit? Yuk tonton anime komedi Grand Blue hanya di Star Anime.
+    </div>
+
+    <div style="display:flex;gap:12px;font-size:12px;color:#5a5a6a;flex-wrap:wrap">
+      <span>🎬 Studio: <strong style="color:#e8e8ed">imagin, WAO!</strong></span>
+      <span>📅 TAYANG: <strong style="color:#e8e8ed">2018 — 2026</strong></span>
+      <span>⏱️ Duration: <strong style="color:#e8e8ed">~24 menit/ep</strong></span>
+      <span>🏷️ Type: <strong style="color:#e8e8ed">TV Series, OVA</strong></span>
+    </div>
+  </div>
+</section>
+
+<!-- SEASON NAV -->
+<nav class="season-nav" style="padding:14px 32px;background:#12121a;border-bottom:1px solid #2a2a36">
+  <a href="#s1" class="active"><span class="season-num">S1</span> Grand Blue Season 1</a>
+  <a href="#s2"><span class="season-num">S2</span> Grand Blue Season 2</a>
+  <a href="#s3"><span class="season-num">S3</span> Grand Blue Season 3</a>
+</nav>
+
+<!-- ===== SEASON 1 ===== -->
+<section class="ep-section" id="s1">
+  <h2>🎬 Grand Blue Season 1 <span class="episode-count">12 Episode</span></h2>
+  <div class="ep-toolbar">
+    <div class="ep-filter">
+      <a href="#" class="active">Semua</a>
+      <a href="#">Video</a>
+      <a href="#">Download</a>
+    </div>
+    <a href="#" class="ep-view-all">Lihat Semua →</a>
+  </div>
+  <div class="ep-grid">
+    <!-- Ep 1 -->
+    <a href="#" class="ep-card active-ep" onclick="selectEpisode(1, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e1/280/160" alt="Ep 1" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 1 — Membeli Minuman Keras</div>
+      <div class="ep-meta">20 Jul 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(2, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e2/280/160" alt="Ep 2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 2 — Teman Baru yang Mabuk</div>
+      <div class="ep-meta">27 Jul 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(3, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e3/280/160" alt="Ep 3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 3 — Perbudakan di Grand Blue</div>
+      <div class="ep-meta">3 Agu 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 4 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(4, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e4/280/160" alt="Ep 4" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 4 — Tantangan Marathon</div>
+      <div class="ep-meta">10 Agu 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 5 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(5, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e5/280/160" alt="Ep 5" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 5 — Iori vs Iori</div>
+      <div class="ep-meta">17 Agu 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 6 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(6, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e6/280/160" alt="Ep 6" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 6 — Party di Pantai</div>
+      <div class="ep-meta">24 Agu 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 7 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(7, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e7/280/160" alt="Ep 7" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 7 — Weekend di Grand Blue</div>
+      <div class="ep-meta">31 Agu 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 8 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(8, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e8/280/160" alt="Ep 8" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 8 — Iori Maju ke Gelanggang</div>
+      <div class="ep-meta">7 Sep 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 9 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(9, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e9/280/160" alt="Ep 9" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 9 — Pertemuan dengan Ojo</div>
+      <div class="ep-meta">14 Sep 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 10 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(10, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e10/280/160" alt="Ep 10" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 10 — Skandal di Kampus</div>
+      <div class="ep-meta">21 Sep 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 11 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(11, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e11/280/160" alt="Ep 11" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 11 — Grand Blue di Ujung Tebing</div>
+      <div class="ep-meta">28 Sep 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 12 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(12, 's1')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s1e12/280/160" alt="Ep 12" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 12 — Grand Blue Final (Season 1)</div>
+      <div class="ep-meta">5 Okt 2018</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== SEASON 2 ===== -->
+<section class="ep-section" id="s2" style="display:none">
+  <h2>🎬 Grand Blue Season 2 <span class="episode-count">12 Episode</span></h2>
+  <div class="ep-toolbar">
+    <div class="ep-filter">
+      <a href="#" class="active">Semua</a>
+      <a href="#">Video</a>
+      <a href="#">Download</a>
+    </div>
+    <a href="#" class="ep-view-all">Lihat Semua →</a>
+  </div>
+  <div class="ep-grid">
+    <!-- Ep 1 S2 -->
+    <a href="#" class="ep-card active-ep" onclick="selectEpisode(1, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e1/280/160" alt="Ep 1 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 1 — Kembali ke Grand Blue</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 2 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(2, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e2/280/160" alt="Ep 2 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 2 — Masalah Baru Iori</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 3 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(3, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e3/280/160" alt="Ep 3 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 3 — Teman Lama Muncul</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 4 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(4, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e4/280/160" alt="Ep 4 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 4 — Pesta di Pantai Izu</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 5 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(5, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e5/280/160" alt="Ep 5 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 5 — Iori Mengakui Hal Buruk</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 6 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(6, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e6/280/160" alt="Ep 6 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 6 — Kejadian di Grand Blue</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 7 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(7, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e7/280/160" alt="Ep 7 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 7 — Iori vs Kakak Kelas</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 8 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(8, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e8/280/160" alt="Ep 8 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 8 — Weekend Hore Hore</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 9 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(9, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e9/280/160" alt="Ep 9 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 9 — Pertemuan dengan Ken</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 10 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(10, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e10/280/160" alt="Ep 10 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 10 — Grand Blue di Ujung Tebing</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 11 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(11, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e11/280/160" alt="Ep 11 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 11 — Grand Blue Kembali</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 12 S2 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(12, 's2')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s2e12/280/160" alt="Ep 12 S2" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 12 — Grand Blue Season 2 Final</div>
+      <div class="ep-meta">Apr 2025</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== SEASON 3 ===== -->
+<section class="ep-section" id="s3" style="display:none">
+  <h2>🎬 Grand Blue Season 3 <span class="episode-count">8 Episode</span></h2>
+  <div class="ep-toolbar">
+    <div class="ep-filter">
+      <a href="#" class="active">Semua</a>
+      <a href="#">Video</a>
+      <a href="#">Download</a>
+    </div>
+    <a href="#" class="ep-view-all">Lihat Semua →</a>
+  </div>
+  <div class="ep-grid">
+    <!-- Ep 1 S3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(1, 's3')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s3e1/280/160" alt="Ep 1 S3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 1 — Grand Blue Kembali Lagi</div>
+      <div class="ep-meta">2026</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 2 S3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(2, 's3')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s3e2/280/160" alt="Ep 2 S3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 2 — Iori Bertambah Besar</div>
+      <div class="ep-meta">2026</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 3 S3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(3, 's3')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s3e3/280/160" alt="Ep 3 S3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 3 — Teman Baru Iori</div>
+      <div class="ep-meta">2026</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 4 S3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(4, 's3')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s3e4/280/160" alt="Ep 4 S3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 4 — Izihya di Pantai</div>
+      <div class="ep-meta">2026</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 5 S3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(5, 's3')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s3e5/280/160" alt="Ep 5 S3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 5 — Perancungan di Grand Blue</div>
+      <div class="ep-meta">2026</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 6 S3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(6, 's3')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s3e6/280/160" alt="Ep 6 S3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 6 — Grand Blue Final</div>
+      <div class="ep-meta">2026</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 7 S3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(7, 's3')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s3e7/280/160" alt="Ep 7 S3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 7 — Grand Blue Tersandung</div>
+      <div class="ep-meta">2026</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+    <!-- Ep 8 S3 -->
+    <a href="#" class="ep-card" onclick="selectEpisode(8, 's3')">
+      <div class="ep-thumb">
+        <img src="https://picsum.photos/seed/gb-s3e8/280/160" alt="Ep 8 S3" onerror="this.style.display='none'">
+        <div class="play-overlay"><div class="ep-play-icon">▶</div></div>
+      </div>
+      <div class="ep-title">Episode 8 — Grand Blue S3 Final (Penutup)</div>
+      <div class="ep-meta">2026</div>
+      <span class="ep-status-badge ep-status-live">Completed</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== BATCH DOWNLOAD SECTION ===== -->
+<section class="batch-section">
+  <h2>📦 Batch Download — Semua Episode</h2>
+  
+  <div class="batch-nav">
+    <a href="#" onclick="showBatch('batch-s1'); return false;" class="active">Season 1 (1-12)</a>
+    <a href="#" onclick="showBatch('batch-s2'); return false;">Season 2 (13-24)</a>
+    <a href="#" onclick="showBatch('batch-s3'); return false;">Season 3 (25-36)</a>
+  </div>
+
+  <div id="batch-s1" class="batch-content">
+    <h3>Grand Blue Season 1 — 12 Episode</h3>
+    <div class="batch-grid">
+      
+      <!-- Batch 360p -->
+      <div class="batch-card">
+        <div class="batch-badge">360p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~450 MB • 12 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Berkasdrive 360p batch akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Mitedrive 360p batch akan disimpan di sini')">Mitedrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Terabox 360p batch akan disimpan di sini')">Terabox</a>
+        </div>
+      </div>
+
+      <!-- Batch 480p -->
+      <div class="batch-card">
+        <div class="batch-badge">480p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~700 MB • 12 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Berkasdrive 480p batch akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Mitedrive 480p batch akan disimpan di sini')">Mitedrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Usersdrive 480p batch akan disimpan di sini')">Usersdrive</a>
+        </div>
+      </div>
+
+      <!-- Batch 720p -->
+      <div class="batch-card">
+        <div class="batch-badge">720p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~1.2 GB • 12 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Berkasdrive 720p batch akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Usersdrive 720p batch akan disimpan di sini')">Usersdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Terabox 720p batch akan disimpan di sini')">Terabox</a>
+        </div>
+      </div>
+
+      <!-- Batch MKV -->
+      <div class="batch-card">
+        <div class="batch-badge">MKV</div>
+        <div class="batch-title">MKV Semua Episode</div>
+        <div class="batch-size">~600 MB • 12 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Berkasdrive MKV batch akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Mitedrive MKV batch akan disimpan di sini')">Mitedrive</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="batch-s2" class="batch-content" style="display:none">
+    <h3>Grand Blue Season 2 — 12 Episode</h3>
+    <div class="batch-grid">
+      
+      <div class="batch-card">
+        <div class="batch-badge">360p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~450 MB • 12 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Berkasdrive 360p batch S2 akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Mitedrive 360p batch S2 akan disimpan di sini')">Mitedrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Terabox 360p batch S2 akan disimpan di sini')">Terabox</a>
+        </div>
+      </div>
+
+      <div class="batch-card">
+        <div class="batch-badge">480p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~700 MB • 12 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Mitedrive 480p batch S2 akan disimpan di sini')">Mitedrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Berkasdrive 480p batch S2 akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Usersdrive 480p batch S2 akan disimpan di sini')">Usersdrive</a>
+        </div>
+      </div>
+
+      <div class="batch-card">
+        <div class="batch-badge">720p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~1.2 GB • 12 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Berkasdrive 720p batch S2 akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Usersdrive 720p batch S2 akan disimpan di sini')">Usersdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Terabox 720p batch S2 akan disimpan di sini')">Terabox</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="batch-s3" class="batch-content" style="display:none">
+    <h3>Grand Blue Season 3 — 8 Episode</h3>
+    <div class="batch-grid">
+      
+      <div class="batch-card">
+        <div class="batch-badge">360p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~300 MB • 8 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Berkasdrive 360p batch S3 akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Mitedrive 360p batch S3 akan disimpan di sini')">Mitedrive</a>
+        </div>
+      </div>
+
+      <div class="batch-card">
+        <div class="batch-badge">480p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~500 MB • 8 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Mitedrive 480p batch S3 akan disimpan di sini')">Mitedrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Berkasdrive 480p batch S3 akan disimpan di sini')">Berkasdrive</a>
+        </div>
+      </div>
+
+      <div class="batch-card">
+        <div class="batch-badge">720p</div>
+        <div class="batch-title">ZIP Semua Episode</div>
+        <div class="batch-size">~850 MB • 8 Episode • Sub Indo</div>
+        <div class="batch-links">
+          <a href="#" class="batch-link" onclick="alert('Link Berkasdrive 720p batch S3 akan disimpan di sini')">Berkasdrive</a>
+          <a href="#" class="batch-link alt" onclick="alert('Link Usersdrive 720p batch S3 akan disimpan di sini')">Usersdrive</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDEO PLAYER SECTION ===== -->
+<section class="video-section">
+  <h2>🎬 Video Player — <span id="current-ep-label">Grand Blue Season 1 Episode 1</span></h2>
+  <div class="video-wrapper">
+    <!-- ============================================ -->
+    <!-- 🚨 GANTI DENGAN LINK VIDEO ASLI             -->
+    <!-- ============================================ -->
+    <!-- CARA 1: Pakai iframe (misal embed YouTube)  -->
+    <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" -->
+    <!--   title="Grand Blue Episode" -->
+    <!--   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" -->
+    <!--   allowfullscreen></iframe>                      -->
+    <!--                                                    -->
+    <!-- CARA 2: Pakai video file sendiri (di folder videos/) -->
+    <!-- <video controls>                               -->
+    <!--   <source src="videos/grand-blue-s1-e1.mp4" type="video/mp4"> -->
+    <!-- </video>                                         -->
+    <!--                                                    -->
+    <!-- Saat ini Tampilkan placeholder saja:           -->
+    <div class="video-placeholder" id="videoPlaceholder">
+      <div class="pp-icon">🎥</div>
+      <div>Video akan muncul di sini</div>
+      <div style="font-size:11px;color:#5a5a6a">Setelah kamu memasukkan link video</div>
+    </div>
+    <!-- ============================================ -->
+  </div>
+  <div class="server-selector">
+    <a href="#" class="server-btn active" onclick="selectServer(1)">
+      <span class="server-dot"></span> Server 1 — Upload Utama
+    </a>
+    <a href="#" class="server-btn" onclick="selectServer(2)">
+      Server 2 — Backup Server
+    </a>
+    <a href="#" class="server-btn" onclick="selectServer(3)">
+      Server 3 — Mirror Alternatif
+    </a>
+    <a href="#" class="server-btn live" onclick="alert('Fitur live streaming belum tersedia')">
+      🔴 Live Streaming (Coming Soon)
+    </a>
+  </div>
+</section>
+
+<!-- ===== DOWNLOAD SECTION ===== -->
+<section class="dl-section">
+  <h2>📥 Download — <span id="current-ep-dl-label">Grand Blue Season 1 Episode 1</span></h2>
+  <div class="dl-grid">
+    <!-- Download 360p -->
+    <a href="#" class="dl-card" onclick="alert('Link download 360p - akan diisi nanti')">
+      <div class="dl-icon">📺</div>
+      <div class="dl-label">MP4 360p</div>
+      <div class="dl-size">~150 MB / episode</div>
+      <span class="dl-badge dl-badge-free">FREE</span>
+    </a>
+    <!-- Download 480p -->
+    <a href="#" class="dl-card" onclick="alert('Link download 480p - akan diisi nanti')">
+      <div class="dl-icon">📺</div>
+      <div class="dl-label">MP4 480p</div>
+      <div class="dl-size">~300 MB / episode</div>
+      <span class="dl-badge dl-badge-free">FREE</span>
+    </a>
+    <!-- Download 720p -->
+    <a href="#" class="dl-card" onclick="alert('Link download 720p - akan diisi nanti')">
+      <div class="dl-icon">🎬</div>
+      <div class="dl-label">MP4 720p</div>
+      <div class="dl-size">~600 MB / episode</div>
+      <span class="dl-badge dl-badge-new">HD</span>
+    </a>
+    <!-- Download MKV -->
+    <a href="#" class="dl-card" onclick="alert('Link download MKV - akan diisi nanti')">
+      <div class="dl-icon">🎥</div>
+      <div class="dl-label">MKV 480p</div>
+      <div class="dl-size">~450 MB / episode</div>
+      <span class="dl-badge dl-badge-free">FREE</span>
+    </a>
+    <!-- Download Sub Indo -->
+    <a href="#" class="dl-card" onclick="alert('Download subtitle - akan diisi nanti')">
+      <div class="dl-icon">🔤</div>
+      <div class="dl-label">Subtitle Indo</div>
+      <div class="dl-size">SRT / ASS</div>
+      <span class="dl-badge dl-badge-free">FREE</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== INFO SECTION ===== -->
+<section class="info-section">
+  <h2>ℹ️ Informasi Tambahan</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>📺 Cara Nonton di Star Anime</h3>
+      <p>Buka halaman anime → pilih episode → klik "Nonton" atau "Download". Video akan memutar di player. Pilih server yang tersedia.</p>
+    </div>
+    <div class="info-card">
+      <h3>📦 Cara Download</h3>
+      <p>Klik tombol download di bawah video → pilih kualitas (360p/480p/720p/MKV) → download file → extract jika zip → mainkan dengan VLC atau player lain.</p>
+    </div>
+    <div class="info-card">
+      <h3>🎬 Tentang Grand Blue</h3>
+      <p>Grand Blue adalah anime komedi slice-of-life yang mengikuti kisah Iori Kitahara, mahasiswa baru di Universitas Izu yang pindah ke toko "Grand Blue" milik pamannya dan terjun ke dunia minuman keras dan berenang dengan teman-temannya.</p>
+    </div>
+    <div class="info-card">
+      <h3>⚠️ Catatan Penting</h3>
+      <p>Video dan link download yang tersedia di halaman ini bersifat <strong>placeholder</strong>. Setelah kamu memiliki sumber video yang valid, ganti link di iframe/video tag dan download link sesuai kebutuhan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-section">
+      <h3>Star Anime</h3>
+      <p style="color:#9a9aab;font-size:12px;line-height:1.6">
+        Portal download dan streaming anime subtitle Indonesia lengkap dan gratis.
+        Koleksi tiap hari update, dari anime ongoing, movie, batch, sampai donghua.
+      </p>
+    </div>
+    <div class="footer-section">
+      <h3>Navigasi</h3>
+      <ul>
+        <li><a href="#">Beranda</a></li>
+        <li><a href="#">Anime Ongoing</a></li>
+        <li><a href="#">Anime Selesai</a></li>
+        <li><a href="#">Anime Movie</a></li>
+        <li><a href="#">Donghua</a></li>
+        <li><a href="#">Grand Blue</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Kategori</h3>
+      <ul>
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Comedy</a></li>
+        <li><a href="#">Fantasy</a></li>
+        <li><a href="#">Seinen</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Informasi</h3>
+      <ul>
+        <li><a href="#">Tentang Kami</a></li>
+        <li><a href="#">Kontak</a></li>
+        <li><a href="#">DMCA</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Star Anime. Portal Anime Sub Indo.</span>
+    <span>Server 1 • Server 2 • Server 3</span>
+    <span>Grand Blue © imagin/WAO!</span>
+  </div>
+</footer>
+
+<script>
+// Episode selection handler
+let currentEpisode = { season: 's1', ep: 1 };
+let currentServer = 1;
+
+function selectEpisode(ep, season) {
+  currentEpisode = { season, ep };
+  document.getElementById('current-ep-label').textContent = 
+    season === 's1' ? `Grand Blue Season 1 Episode ${ep}` :
+    season === 's2' ? `Grand Blue Season 2 Episode ${ep}` :
+    `Grand Blue Season 3 Episode ${ep}`;
+  document.getElementById('current-ep-dl-label').textContent = document.getElementById('current-ep-label').textContent;
+  
+  // Highlight active episode card
+  document.querySelectorAll('.ep-card').forEach(c => c.classList.remove('active-ep'));
+  const activeCard = document.querySelector(`#${season} .ep-card:nth-child(${ep})`);
+  if (activeCard) activeCard.classList.add('active-ep');
+  
+  // TODO: Ganti ini dengan logika untuk load video player
+  // Contoh: document.getElementById('videoIframe').src = 'VIDEO_LINK_' + season + '_' + ep;
+  // document.getElementById('videoIframe').style.display = 'block';
+  // document.getElementById('videoPlaceholder').style.display = 'none';
+  
+  console.log('Selected:', season, 'Episode', ep);
+}
+
+function selectServer(serverNum) {
+  currentServer = serverNum;
+  document.querySelectorAll('.server-btn').forEach(b => b.classList.remove('active'));
+  const btns = document.querySelectorAll('.server-btn');
+  if (btns[serverNum - 1]) btns[serverNum - 1].classList.add('active');
+  console.log('Server selected:', serverNum);
+}
+
+// Season tab switching (simple)
+document.querySelectorAll('.season-nav a').forEach(tab => {
+  tab.addEventListener('click', function(e) {
+    e.preventDefault();
+    const season = this.getAttribute('href').slice(1);
+    document.querySelectorAll('.season-nav a').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    document.querySelectorAll('.ep-section').forEach(s => s.style.display = 'none');
+    document.getElementById(season).style.display = 'block';
+  });
+});
+</script>
+
+</body>
+</html>
